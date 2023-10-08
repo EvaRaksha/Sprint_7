@@ -1,19 +1,20 @@
 package com.example.order;
 
 import com.example.Client;
-import com.example.courier.Credentials;
 import io.restassured.response.ValidatableResponse;
 
 public class OrderClient extends Client {
 
-    static final String ORDER_PATH = "/orders";
+    static final String ORDERS_PATH = "/orders";
 
-    public ValidatableResponse create(Credentials order) {
+    public ValidatableResponse createOrder(OrderData orderData) {
         return spec()
-                .body(order)
+                .body(orderData)
                 .when()
-                .post(ORDER_PATH)
+                .post(ORDERS_PATH)
                 .then().log().all();
     }
 
+    public void deleteOrder(String trackNumber) {
+    }
 }

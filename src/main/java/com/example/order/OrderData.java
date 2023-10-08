@@ -2,21 +2,20 @@ package com.example.order;
 
 import java.util.List;
 
-public class Order {
+public class OrderData {
     private String firstName;
     private String lastName;
     private String address;
-    private String metroStation;
+    private String  metroStation;
     private String phone;
     private String rentTime;
     private String deliveryDate;
     private String comment;
     private List<String> color;
 
-    public Order() {
-    }
-
-    public Order(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, List<String> color) {
+    public OrderData(String firstName, String lastName, String address, String metroStation, String phone,
+                     String rentTime, String deliveryDate,
+                     String comment, List<String> color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -27,6 +26,12 @@ public class Order {
         this.comment = comment;
         this.color = color;
     }
+
+    public static OrderData from(OrderData orderData) {
+        return new OrderData(orderData.firstName, orderData.lastName, orderData.address, orderData.metroStation, orderData.phone, orderData.rentTime, orderData.deliveryDate, orderData.comment, orderData.color);
+    }
+
+    // Геттеры и сеттеры для всех полей, если необходимо
 
     public String getFirstName() {
         return firstName;
