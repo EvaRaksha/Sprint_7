@@ -17,4 +17,11 @@ public class OrderClient extends Client {
 
     public void deleteOrder(String trackNumber) {
     }
+
+    public ValidatableResponse getOrdersList() {
+        return spec()
+                .when()
+                .get(ORDERS_PATH)
+                .then().log().all();
+    }
 }

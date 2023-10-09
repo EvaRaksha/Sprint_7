@@ -4,6 +4,8 @@ import com.example.Client;
 import com.example.order.OrderClient;
 import com.example.order.OrderCreate;
 import com.example.order.OrderData;
+import com.example.order.OrderList;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +22,8 @@ public class OrderCreateTest extends Client{
 
     private final OrderClient client = new OrderClient();
     private final OrderCreate chek = new OrderCreate();
+
+    private final OrderList checkList = new OrderList();
 
     private String firstName;
     private String lastName;
@@ -80,11 +84,22 @@ public class OrderCreateTest extends Client{
                 scooterColor
         );
 
-        // Отправляем запрос на создание заказа и получаем ответ
         ValidatableResponse response;
         response = client.createOrder(OrderData.from(orderData));
         chek.createdOrderSuccessfully(response);
 
         String trackNumber = chek.getTrackNumber();
+    }
+
+    @Test
+    public void testGetOrdersList() {
+            ValidatableResponse response = client.getOrdersList();
+            checkList.getOrdersList(response);
+    }
+
+    @Test
+    public void testCheckOrdersInResponse() {
+        ValidatableResponse response = client.getOrdersList();
+        checkList.checkOrdersInResponse( response);
     }
 }
