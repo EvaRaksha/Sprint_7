@@ -4,7 +4,7 @@ import io.restassured.response.ValidatableResponse;
 import java.net.HttpURLConnection;
 
 public class OrderCreate {
-    private String trackNumber; // Объявляем переменную trackNumber
+    private String trackNumber;
 
     public void createdOrderSuccessfully(ValidatableResponse response) {
         response
@@ -12,7 +12,6 @@ public class OrderCreate {
                 .statusCode(HttpURLConnection.HTTP_CREATED);
         trackNumber = response.extract().path("track").toString();
     }
-    // Геттер для получения сохраненного номера заказа
     public String getTrackNumber() {
         return trackNumber;
     }

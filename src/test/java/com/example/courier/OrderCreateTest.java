@@ -5,7 +5,7 @@ import com.example.order.OrderClient;
 import com.example.order.OrderCreate;
 import com.example.order.OrderData;
 import com.example.order.OrderList;
-import io.restassured.response.Response;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -62,16 +62,16 @@ public class OrderCreateTest extends Client{
     }
 
     @After
+    @DisplayName("Удаление заказа по его номеру")
     public void cleanupTestData() {
-        // Проверяем, что trackNumber не равен null и удаляем заказ по его номеру (trackNumber)
         if (chek.getTrackNumber() != null) {
             client.deleteOrder(chek.getTrackNumber());
         }
     }
 
     @Test
+    @DisplayName("Создание заказа")
     public void testPostRequest() {
-        // Создаем объект OrderData с данными для отправки на сервер
         OrderData orderData = new OrderData(
                 firstName,
                 lastName,
@@ -84,6 +84,7 @@ public class OrderCreateTest extends Client{
                 scooterColor
         );
 
+
         ValidatableResponse response;
         response = client.createOrder(OrderData.from(orderData));
         chek.createdOrderSuccessfully(response);
@@ -92,12 +93,14 @@ public class OrderCreateTest extends Client{
     }
 
     @Test
+    @DisplayName("Список заказов")
     public void testGetOrdersList() {
             ValidatableResponse response = client.getOrdersList();
             checkList.getOrdersList(response);
     }
 
     @Test
+    @DisplayName("Список заказов не равен нулю")
     public void testCheckOrdersInResponse() {
         ValidatableResponse response = client.getOrdersList();
         checkList.checkOrdersInResponse( response);

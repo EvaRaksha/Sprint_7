@@ -31,8 +31,6 @@ public class OrderData {
         return new OrderData(orderData.firstName, orderData.lastName, orderData.address, orderData.metroStation, orderData.phone, orderData.rentTime, orderData.deliveryDate, orderData.comment, orderData.color);
     }
 
-    // Геттеры и сеттеры для всех полей, если необходимо
-
     public String getFirstName() {
         return firstName;
     }

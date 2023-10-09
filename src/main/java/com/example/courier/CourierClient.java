@@ -31,7 +31,6 @@ public class CourierClient extends Client {
     }
 
     public ValidatableResponse loginWithNonExistentAccount() {
-        // Создайте экземпляр Credentials с несуществующими логином и паролем
         Credentials nonExistentCredentials = new Credentials("non_existent_login", "non_existent_password");
 
         return login(nonExistentCredentials);
