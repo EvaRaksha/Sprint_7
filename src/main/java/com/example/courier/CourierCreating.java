@@ -1,5 +1,6 @@
 package com.example.courier;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import java.net.HttpURLConnection;
@@ -13,7 +14,7 @@ public class CourierCreating {
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_CREATED)
                 .body("ok", is(true))
-                ;
+        ;
     }
 
     public void insufficientDataForCreate(ValidatableResponse response) {
@@ -29,5 +30,4 @@ public class CourierCreating {
                 .statusCode(HttpURLConnection.HTTP_CONFLICT)
                 .body("message", is("Этот логин уже используется. Попробуйте другой."));
     }
-
 }

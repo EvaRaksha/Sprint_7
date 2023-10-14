@@ -1,6 +1,7 @@
 package com.example.order;
 
 import com.example.Client;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 public class OrderClient extends Client {

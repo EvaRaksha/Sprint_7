@@ -1,11 +1,10 @@
 package com.example.order;
 
 import com.example.Client;
-import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 import java.net.HttpURLConnection;
-import static org.hamcrest.Matchers.is;
+
 import static org.hamcrest.Matchers.notNullValue;
 
 public class OrderList extends Client {

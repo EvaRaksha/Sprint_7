@@ -13,8 +13,7 @@ public class CourierLogin {
                 .assertThat()
                 .statusCode(HttpURLConnection.HTTP_OK)
                 .extract()
-                .path("id")
-                ;
+                .path("id");
         return id;
     }
 

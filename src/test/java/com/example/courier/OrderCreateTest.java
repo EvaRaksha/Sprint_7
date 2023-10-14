@@ -5,7 +5,7 @@ import com.example.order.OrderClient;
 import com.example.order.OrderCreate;
 import com.example.order.OrderData;
 import com.example.order.OrderList;
-import io.qameta.allure.junit4.DisplayName;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -18,13 +18,14 @@ import java.util.Collection;
 import java.util.List;
 
 @RunWith(Parameterized.class)
-public class OrderCreateTest extends Client{
+public class OrderCreateTest extends Client {
 
     private final OrderClient client = new OrderClient();
     private final OrderCreate chek = new OrderCreate();
 
     private final OrderList checkList = new OrderList();
-
+    @Parameterized.Parameter(0)
+    public List<String> scooterColors;
     private String firstName;
     private String lastName;
     private String address;
@@ -35,20 +36,18 @@ public class OrderCreateTest extends Client{
     private String comment;
     private List<String> scooterColor;
 
-    @Parameterized.Parameter(0)
-    public List<String> scooterColors;
-
     @Parameterized.Parameters(name = "Цвет самоката: {0}")
     public static Collection<List<String>> initParamsForTest() {
         return Arrays.asList(
-                Arrays.asList(),           // Без указания цвета
-                Arrays.asList("BLACK"),   // Цвет BLACK
-                Arrays.asList("GREY"),    // Цвет GREY
-                Arrays.asList("BLACK", "GREY")  // Оба цвета
+                Arrays.asList(),
+                Arrays.asList("BLACK"),
+                Arrays.asList("GREY"),
+                Arrays.asList("BLACK", "GREY")
         );
     }
 
     @Before
+    @Step("Подготовка тестовых данных")
     public void prepareTestData() {
         this.firstName = "testName";
         this.lastName = "testLastName";
@@ -62,7 +61,7 @@ public class OrderCreateTest extends Client{
     }
 
     @After
-    @DisplayName("Удаление заказа по его номеру")
+    @Step("Удаление заказа по его номеру")
     public void cleanupTestData() {
         if (chek.getTrackNumber() != null) {
             client.deleteOrder(chek.getTrackNumber());
@@ -70,7 +69,7 @@ public class OrderCreateTest extends Client{
     }
 
     @Test
-    @DisplayName("Создание заказа")
+    @Step("Создание заказа")
     public void testPostRequest() {
         OrderData orderData = new OrderData(
                 firstName,
@@ -93,16 +92,16 @@ public class OrderCreateTest extends Client{
     }
 
     @Test
-    @DisplayName("Список заказов")
+    @Step("Список заказов")
     public void testGetOrdersList() {
-            ValidatableResponse response = client.getOrdersList();
-            checkList.getOrdersList(response);
+        ValidatableResponse response = client.getOrdersList();
+        checkList.getOrdersList(response);
     }
 
     @Test
-    @DisplayName("Список заказов не равен нулю")
+    @Step("Список заказов не равен нулю")
     public void testCheckOrdersInResponse() {
         ValidatableResponse response = client.getOrdersList();
-        checkList.checkOrdersInResponse( response);
+        checkList.checkOrdersInResponse(response);
     }
 }

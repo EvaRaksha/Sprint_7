@@ -1,6 +1,7 @@
 package com.example.order;
 
 import io.restassured.response.ValidatableResponse;
+
 import java.net.HttpURLConnection;
 
 public class OrderCreate {
@@ -12,11 +13,8 @@ public class OrderCreate {
                 .statusCode(HttpURLConnection.HTTP_CREATED);
         trackNumber = response.extract().path("track").toString();
     }
+
     public String getTrackNumber() {
         return trackNumber;
     }
-
-    public void getOrdersList(ValidatableResponse response) {
-    }
 }
-

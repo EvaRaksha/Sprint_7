@@ -1,6 +1,7 @@
 package com.example.courier;
 
 import com.example.Client;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import java.util.Map;
@@ -38,15 +39,15 @@ public class CourierClient extends Client {
 
     public ValidatableResponse delete(int courierId) {
         return spec()
-                .body(Map.of("id",courierId))
+                .body(Map.of("id", courierId))
                 .when()
                 .delete(COURIER_PATH + "/" + courierId)
                 .then().log().all();
     }
 
     public ValidatableResponse createWithoutMandatoryFields() {
-            Credentials emptyCredentials = new Credentials("", "");
+        Credentials emptyCredentials = new Credentials("", "");
 
-            return create(emptyCredentials);
+        return create(emptyCredentials);
     }
 }
