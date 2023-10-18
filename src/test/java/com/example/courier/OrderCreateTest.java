@@ -6,6 +6,7 @@ import com.example.order.OrderCreate;
 import com.example.order.OrderData;
 import com.example.order.OrderList;
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +23,8 @@ public class OrderCreateTest extends Client {
 
     private final OrderClient client = new OrderClient();
     private final OrderCreate chek = new OrderCreate();
-
     private final OrderList checkList = new OrderList();
+
     @Parameterized.Parameter(0)
     public List<String> scooterColors;
     private String firstName;
@@ -37,6 +38,7 @@ public class OrderCreateTest extends Client {
     private List<String> scooterColor;
 
     @Parameterized.Parameters(name = "Цвет самоката: {0}")
+    @DisplayName("Параметризованный тест создания заказа")
     public static Collection<List<String>> initParamsForTest() {
         return Arrays.asList(
                 Arrays.asList(),
@@ -47,7 +49,7 @@ public class OrderCreateTest extends Client {
     }
 
     @Before
-    @Step("Подготовка тестовых данных")
+    @DisplayName("Подготовка тестовых данных")
     public void prepareTestData() {
         this.firstName = "testName";
         this.lastName = "testLastName";
@@ -61,7 +63,7 @@ public class OrderCreateTest extends Client {
     }
 
     @After
-    @Step("Удаление заказа по его номеру")
+    @DisplayName("Удаление заказа по его трекномеру")
     public void cleanupTestData() {
         if (chek.getTrackNumber() != null) {
             client.deleteOrder(chek.getTrackNumber());
@@ -69,7 +71,7 @@ public class OrderCreateTest extends Client {
     }
 
     @Test
-    @Step("Создание заказа")
+    @DisplayName("Создание заказа")
     public void testPostRequest() {
         OrderData orderData = new OrderData(
                 firstName,
@@ -92,14 +94,14 @@ public class OrderCreateTest extends Client {
     }
 
     @Test
-    @Step("Список заказов")
+    @DisplayName("Список заказов")
     public void testGetOrdersList() {
         ValidatableResponse response = client.getOrdersList();
         checkList.getOrdersList(response);
     }
 
     @Test
-    @Step("Список заказов не равен нулю")
+    @DisplayName("Список заказов не равен нулю")
     public void testCheckOrdersInResponse() {
         ValidatableResponse response = client.getOrdersList();
         checkList.checkOrdersInResponse(response);

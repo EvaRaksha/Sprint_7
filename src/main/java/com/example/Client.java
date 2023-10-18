@@ -1,5 +1,6 @@
 package com.example;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
@@ -9,6 +10,7 @@ public class Client {
     static final String BASE_URI = "https://qa-scooter.praktikum-services.ru";
     private static final String BASE_PATH = "/api/v1";
 
+    @Step("Настройка и инициализация HTTP-запроса")
     public RequestSpecification spec() {
         return given().log().all()
                 .contentType(ContentType.JSON)

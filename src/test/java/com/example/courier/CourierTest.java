@@ -1,6 +1,7 @@
 package com.example.courier;
 
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Test;
@@ -13,13 +14,13 @@ public class CourierTest {
     private int courierId;
 
     @After
-    @Step("Удаление курьера по id")
+    @DisplayName("Удаление курьера по id")
     public void deleteCourier() {
         client.delete(courierId);
     }
 
     @Test
-    @Step("Создание курьера")
+    @DisplayName("Создание курьера")
     public void testCreateCourier() {
         var courier = CourierGenerator.random();
         ValidatableResponse response = client.create(Credentials.from(courier));
@@ -27,14 +28,14 @@ public class CourierTest {
     }
 
     @Test
-    @Step("Создание курьера без передачи обязательных полей")
+    @DisplayName("Создание курьера без передачи обязательных полей")
     public void testCreateCourierWithoutMandatoryFields() {
         ValidatableResponse createWithoutMandatoryFieldsResponse = client.createWithoutMandatoryFields();
         chek.insufficientDataForCreate(createWithoutMandatoryFieldsResponse);
     }
 
     @Test
-    @Step("Попытка создания двух одинаковых курьеров")
+    @DisplayName("Попытка создания двух одинаковых курьеров")
     public void testDuplicateCreateCourier() {
         var courier = CourierGenerator.random();
         ValidatableResponse response = client.create(Credentials.from(courier));
@@ -45,7 +46,7 @@ public class CourierTest {
     }
 
     @Test
-    @Step("Создание двух разных курьеров")
+    @DisplayName("Создание двух разных курьеров")
     public void testCreateTwoDifferentCouriers() {
         var courier1 = CourierGenerator.random();
         var courier2 = CourierGenerator.random();
@@ -58,7 +59,7 @@ public class CourierTest {
     }
 
     @Test
-    @Step("Попытка создания курьера с существующим логином")
+    @DisplayName("Попытка создания курьера с существующим логином")
     public void testCreateCourierWithDuplicateLogin() {
         var courier = CourierGenerator.random();
 
@@ -70,14 +71,14 @@ public class CourierTest {
     }
 
     @Test
-    @Step("Попытка входа курьера без передачи обязательных полей")
+    @DisplayName("Попытка входа курьера без передачи обязательных полей")
     public void testLoginCourierWithoutMandatoryFields() {
         ValidatableResponse invalidLoginResponse = client.loginWithEmptyValues();
         chekLogin.insufficientDataForLogin(invalidLoginResponse);
     }
 
     @Test
-    @Step("Вход несуществующим пользователем")
+    @DisplayName("Вход несуществующим пользователем")
     public void testLoginWithNonExistentUser() {
         var courier = CourierGenerator.random();
         ValidatableResponse createResponse = client.create(Credentials.from(courier));
@@ -87,7 +88,7 @@ public class CourierTest {
     }
 
     @Test
-    @Step("Успешный вход курьера")
+    @DisplayName("Успешный вход курьера")
     public void testSuccessfulCourierLogin() {
         var courier = CourierGenerator.random();
         ValidatableResponse createResponse = client.create(Credentials.from(courier));

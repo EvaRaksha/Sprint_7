@@ -8,6 +8,7 @@ public class OrderClient extends Client {
 
     static final String ORDERS_PATH = "/orders";
 
+    @Step("Отправка запроса на создание заказа")
     public ValidatableResponse createOrder(OrderData orderData) {
         return spec()
                 .body(orderData)
@@ -16,9 +17,11 @@ public class OrderClient extends Client {
                 .then().log().all();
     }
 
+    @Step("Отправка запроса на удаление заказа")
     public void deleteOrder(String trackNumber) {
     }
 
+    @Step("Отправка запроса на получение списка заказов")
     public ValidatableResponse getOrdersList() {
         return spec()
                 .when()
